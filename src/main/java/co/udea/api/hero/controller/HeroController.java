@@ -41,45 +41,42 @@ public class HeroController {
             @ApiResponse(code = 200, message = "Heroes encontrados existosamente"),
             @ApiResponse(code = 400, message = "La petición es invalida"),
             @ApiResponse(code = 500, message = "Error interno al procesar la respuesta")})
-
     public List<Hero> getHeroes(){
        return this.heroService.listarHeroes();
     }
-/*
-    @GetMapping
+
+    @GetMapping("/")
     @ApiOperation(value = "listar  busqueda",  response = Hero.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Heroes encontrados existosamente"),
             @ApiResponse(code = 400, message = "La petición es invalida"),
             @ApiResponse(code = 500, message = "Error interno al procesar la respuesta")})
-    public void searchHeroes(){
+    public List<Hero> searchHeroes(@RequestParam("name") String term){
+        System.out.println(term+" es el termino");
+        return heroService.searchHeroe(term);
     }
 
-*/
     @PutMapping
     @ApiOperation(value = "Actualizar heroe",  response = Hero.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Heroe actualizado existosamente"),
             @ApiResponse(code = 400, message = "La petición es invalida"),
             @ApiResponse(code = 500, message = "Error interno al procesar la respuesta")})
-    public void updateHero(){
-
-    }
-
+        public void updateHero(@RequestBody Hero hero){
+            this.heroService.updateHero(hero);
+        }
 
     @PostMapping
-    //@Transactional
     @ApiOperation(value = "Agregar heroe",  response = Hero.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Heroe agregado existosamente"),
             @ApiResponse(code = 400, message = "La petición es invalida"),
             @ApiResponse(code = 500, message = "Error interno al procesar la respuesta")})
-    public void addHero( ){//@RequestBody
-
+    public Hero addHero(@RequestBody Hero hero){
+        return this.heroService.addHero(hero);
     }
 
-
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     @ApiOperation(value = "eliminar heroe",  response = Hero.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Heroes eliminado existosamente"),

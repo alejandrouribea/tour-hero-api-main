@@ -30,10 +30,9 @@ public class HeroService {
     }
 
 
-        public List<Hero> listarHeroes() {
+    public List<Hero> listarHeroes() {
             return heroRepository.findAll();
-        }
-
+    }
 
 
     public void deleteHero(Integer id) {
@@ -42,4 +41,21 @@ public class HeroService {
         }
         heroRepository.deleteById(id);
     }
+
+    public List<Hero> searchHeroe(String term){
+        return heroRepository.findByNameContaining(term);
+    }
+
+    public Hero addHero(Hero hero){
+        return heroRepository.save(hero);
+    }
+
+    public void updateHero(Hero hero){
+        heroRepository.findById(hero.getId()).ifPresent(hero1 -> {
+            hero1.setName(hero.getName());
+            heroRepository.save(hero1);
+        });
+    }
+
 }
+
