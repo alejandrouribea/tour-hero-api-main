@@ -48,11 +48,10 @@ public class HeroController {
     @GetMapping("/")
     @ApiOperation(value = "listar  busqueda",  response = Hero.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Heroes encontrados existosamente"),
+            @ApiResponse(code = 200, message = "Heroe encontrados existosamente"),
             @ApiResponse(code = 400, message = "La petición es invalida"),
             @ApiResponse(code = 500, message = "Error interno al procesar la respuesta")})
     public List<Hero> searchHeroes(@RequestParam("name") String term){
-        System.out.println(term+" es el termino");
         return heroService.searchHeroe(term);
     }
 
